@@ -1,0 +1,15 @@
+node_modules
+dist
+.output
+.env
+.env.local
+.git
+.gitignore
+*.md
+.eslintrc.json
+.prettierrc
+.prettierignore
+.husky
+.idea
+bun.lock
+src/lib/qrbtf_lib/qrcodes/*_legacy.tsx
