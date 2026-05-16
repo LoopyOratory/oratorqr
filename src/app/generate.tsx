@@ -3,6 +3,7 @@ import { z } from "zod";
 import { useState, useCallback, useRef, createElement, useEffect } from "react";
 import { useAtom } from "jotai";
 import { urlAtom } from "@/lib/states";
+import { useSession } from "@/auth/client";
 import { qrbtfModuleA1 } from "@/lib/qrbtf_lib/qrcodes/a1";
 import { A1Presets } from "@/lib/qrbtf_lib/qrcodes/a1_config";
 import { qrbtfModuleA2 } from "@/lib/qrbtf_lib/qrcodes/a2";
@@ -69,6 +70,20 @@ function findMod(style: string) {
     if (mod.keys.has(style)) return { mod, preset: (mod.presets as any)[style] };
   }
   return { mod: modules.a1, preset: A1Presets.a1 };
+}
+
+function AuthDownloadGate({ children }: { children: React.ReactNode }) {
+  const { data: session } = useSession();
+
+  if (session?.user) {
+    return <>{children}</>;
+  }
+
+  return (
+    <a href="/auth" className="w-full rounded-lg bg-primary text-primary-foreground px-4 py-3 text-sm font-medium hover:bg-primary/90 transition-colors text-center block">
+      Sign in to Download
+    </a>
+  );
 }
 
 function GeneratePage() {
@@ -184,10 +199,12 @@ function SimpleTab({ initialStyle }: { initialStyle?: string }) {
           )}
         </div>
         {url && (
-          <div className="flex gap-2">
-            <button onClick={downloadSVG} className="rounded-lg border px-4 py-2 text-sm font-medium hover:bg-accent transition-colors">SVG</button>
-            <button onClick={downloadPNG} className="rounded-lg bg-primary text-primary-foreground px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors">PNG</button>
-          </div>
+          <AuthDownloadGate>
+            <div className="flex gap-2">
+              <button onClick={downloadSVG} className="rounded-lg border px-4 py-2 text-sm font-medium hover:bg-accent transition-colors">SVG</button>
+              <button onClick={downloadPNG} className="rounded-lg bg-primary text-primary-foreground px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors">PNG</button>
+            </div>
+          </AuthDownloadGate>
         )}
       </div>
     </div>

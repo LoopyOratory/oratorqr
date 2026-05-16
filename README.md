@@ -1,227 +1,103 @@
-Welcome to your new TanStack Start app! 
+<h1 align="center">🎤 Orator QR</h1>
 
-# Getting Started
+<p align="center">
+  <img src="https://img.shields.io/badge/runtime-Bun-000000?logo=bun&style=flat-square" alt="Bun">
+  <img src="https://img.shields.io/badge/framework-TanStack_Start-10b981?style=flat-square" alt="TanStack Start">
+  <img src="https://img.shields.io/badge/react-19-61dafb?logo=react&style=flat-square" alt="React 19">
+  <img src="https://img.shields.io/badge/tailwind-v4-38bdf8?logo=tailwindcss&style=flat-square" alt="Tailwind v4">
+  <img src="https://img.shields.io/badge/database-Neon-00e599?logo=postgresql&style=flat-square" alt="Neon Postgres">
+  <img src="https://img.shields.io/badge/payments-Paystack-00c3f7?style=flat-square" alt="Paystack">
+  <img src="https://img.shields.io/badge/license-Dual-blue?style=flat-square" alt="Dual License">
+</p>
 
-To run this application:
+<p align="center">
+  <strong>AI & Parametric QR Code Generator</strong><br>
+  Beautiful, scannable QR codes — custom styled, parametric, or AI-generated.<br>
+  Built-in auth, credit system, Paystack Ghana payments.
+</p>
 
-```bash
-pnpm install
-pnpm dev
-```
+---
 
-# Building For Production
+## ✨ Features
 
-To build this application for production:
+| Category | Details |
+|---|---|
+| **Custom QR** | 14 dot shapes, 6 corner shapes, 7 corner dot types, solid & gradient colors, logo embedding, circle/square layouts |
+| **Parametric Styles** | 10 unique engines — Basic, Advanced, Image Overlay, X-Mark, Vortex, Circuit Board, Mosaic & more |
+| **AI QR** | Prompt-based generation via external AI service with live progress |
+| **Auth** | Email/password + Google OAuth via Better Auth |
+| **Payments** | Paystack Ghana integration — credit packs, combo deals |
+| **Credits** | Per-user simple + AI credit tracking, transaction history |
+| **Collection** | My Collection page — view, re-download, manage all your QR codes |
+| **Downloads** | SVG + PNG for all styles (gated behind sign-in) |
+| **Dark Mode** | System-aware theme with manual toggle |
+| **Pricing** | Free tier + 3 paid plans + credit packs ($20 combo pack) |
 
-```bash
-pnpm build
-```
+## 🏗️ Migration Story
 
-## Testing
+Orator QR began as [QRBTF](https://github.com/latentcat/qrbtf), a Next.js 14 application running on npm with the App Router, next-intl for i18n, and a custom auth system. We performed a complete framework migration:
 
-This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
+| From | To | Why |
+|---|---|---|
+| **Next.js 14** | **TanStack Start** | Type-safe routing, server functions, Bun-native |
+| **npm/Yarn** | **Bun** | 10x faster installs, native bundler |
+| **next-intl** | English-only | Simplify UX |
+| **latentcat-auth** | **Better Auth** | Modern auth with email+password + Google OAuth |
+| **No DB** | **Neon + Drizzle** | Serverless Postgres with type-safe ORM |
+| **Tailwind v3** | **Tailwind v4** | CSS-first config, Vite-native |
+| **framer-motion** | **motion v12** | Same library, newer package |
+| **47 style pages** | **3 tabs** | Custom, Simple, AI — one dynamic route |
+| **No payments** | **Paystack Ghana** | Credit pack purchases with GHS currency |
 
-```bash
-pnpm test
-```
-
-## Styling
-
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
-
-### Removing Tailwind CSS
-
-If you prefer not to use Tailwind CSS:
-
-1. Remove the demo pages in `src/routes/demo/`
-2. Replace the Tailwind import in `src/styles.css` with your own styles
-3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
-4. Uninstall the packages: `pnpm add @tailwindcss/vite tailwindcss --dev`
-
-
-## Setting up Better Auth
-
-1. Generate and set the `BETTER_AUTH_SECRET` environment variable in your `.env.local`:
-
-   ```bash
-   pnpm dlx @better-auth/cli secret
-   ```
-
-2. Visit the [Better Auth documentation](https://www.better-auth.com) to unlock the full potential of authentication in your app.
-
-### Adding a Database (Optional)
-
-Better Auth can work in stateless mode, but to persist user data, add a database:
-
-```typescript
-// src/lib/auth.ts
-import { betterAuth } from "better-auth";
-import { Pool } from "pg";
-
-export const auth = betterAuth({
-  database: new Pool({
-    connectionString: process.env.DATABASE_URL,
-  }),
-  // ... rest of config
-});
-```
-
-Then run migrations:
+## 🚀 Quick Start
 
 ```bash
-pnpm dlx @better-auth/cli migrate
+cp .env.example .env       # fill in DATABASE_URL, GOOGLE_CLIENT_*, PAYSTACK_SECRET_KEY, AI_SERVICE_URL
+bun install
+bun run db:push            # create database tables
+bun run seed.ts            # seed admin user
+bun run dev                # → http://localhost:3000
 ```
 
-
-
-## Routing
-
-This project uses [TanStack Router](https://tanstack.com/router) with file-based routing. Routes are managed as files in `src/routes`.
-
-### Adding A Route
-
-To add a new route to your application just add a new file in the `./src/routes` directory.
-
-TanStack will automatically generate the content of the route file for you.
-
-Now that you have two routes you can use a `Link` component to navigate between them.
-
-### Adding Links
-
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
-
-```tsx
-import { Link } from "@tanstack/react-router";
+```bash
+bun run build && bun run start   # production
 ```
 
-Then anywhere in your JSX you can use it like so:
+Default tab is **Custom QR** — start styling immediately.
 
-```tsx
-<Link to="/about">About</Link>
-```
+## 📦 Tech Stack
 
-This will create a link that will navigate to the `/about` route.
+| Layer | Technology |
+|---|---|
+| Framework | [TanStack Start](https://tanstack.com/start) v1.168+ |
+| Runtime | [Bun](https://bun.sh) |
+| Build | Vite 8 + Nitro (`preset: "bun"`) |
+| UI | Tailwind CSS v4 + Radix UI primitives |
+| Database | [Neon](https://neon.tech) serverless Postgres + [Drizzle ORM](https://orm.drizzle.team) |
+| Auth | [Better Auth](https://better-auth.com) + Google OAuth |
+| Payments | [Paystack](https://paystack.com) (Ghana) |
+| QR Engine | [QRCode.js](https://github.com/QR-Platform/qr-code.js) + custom parametric renderers |
+| Validation | Zod |
 
-More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
+## 📄 License
 
-### Using A Layout
+Dual-licensed — choose the one that fits your use case:
 
-In the File Based Routing setup the layout is located in `src/routes/__root.tsx`. Anything you add to the root route will appear in all the routes. The route content will appear in the JSX where you render `{children}` in the `shellComponent`.
+| Use Case | License | Cost |
+|---|---|---|
+| Open-source projects | [GPL v3](LICENSE) | Free |
+| Commercial / proprietary | [Commercial License](LICENSE-COMMERCIAL.md) | $2,000/year |
 
-Here is an example layout that includes a header:
+## 🙏 Credits
 
-```tsx
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
+Built by **[LoopyOratory](https://github.com/LoopyOratory)**.
 
-export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      { charSet: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'My App' },
-    ],
-  }),
-  shellComponent: ({ children }) => (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <header>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-          </nav>
-        </header>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  ),
-})
-```
+Standing on the shoulders of giants:
 
-More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
-
-## Server Functions
-
-TanStack Start provides server functions that allow you to write server-side code that seamlessly integrates with your client components.
-
-```tsx
-import { createServerFn } from '@tanstack/react-start'
-
-const getServerTime = createServerFn({
-  method: 'GET',
-}).handler(async () => {
-  return new Date().toISOString()
-})
-
-// Use in a component
-function MyComponent() {
-  const [time, setTime] = useState('')
-  
-  useEffect(() => {
-    getServerTime().then(setTime)
-  }, [])
-  
-  return <div>Server time: {time}</div>
-}
-```
-
-## API Routes
-
-You can create API routes by using the `server` property in your route definitions:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-import { json } from '@tanstack/react-start'
-
-export const Route = createFileRoute('/api/hello')({
-  server: {
-    handlers: {
-      GET: () => json({ message: 'Hello, World!' }),
-    },
-  },
-})
-```
-
-## Data Fetching
-
-There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
-
-For example:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-
-export const Route = createFileRoute('/people')({
-  loader: async () => {
-    const response = await fetch('https://swapi.dev/api/people')
-    return response.json()
-  },
-  component: PeopleComponent,
-})
-
-function PeopleComponent() {
-  const data = Route.useLoaderData()
-  return (
-    <ul>
-      {data.results.map((person) => (
-        <li key={person.name}>{person.name}</li>
-      ))}
-    </ul>
-  )
-}
-```
-
-Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-# Demo files
-
-Files prefixed with `demo` can be safely deleted. They are there to provide a starting point for you to play around with the features you've installed.
-
-# Learn More
-
-You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
-
-For TanStack Start specific documentation, visit [TanStack Start](https://tanstack.com/start).
+- **[QRBTF](https://github.com/latentcat/qrbtf)** by [Latent Cat](https://latentcat.com) — the original parametric QR engine and AI pipeline
+- **[QRCode.js](https://github.com/QR-Platform/qr-code.js)** by QR-Platform — customizable QR rendering (used under open-source license)
+- **[TanStack Start](https://github.com/TanStack/router)** — full-stack React framework
+- **[Better Auth](https://github.com/better-auth/better-auth)** — authentication
+- **[Neon](https://neon.tech)** — serverless Postgres
+- **[Drizzle ORM](https://github.com/drizzle-team/drizzle-orm)** — type-safe database
+- **[Paystack](https://paystack.com)** — payments infrastructure for Africa

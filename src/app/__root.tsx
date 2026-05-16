@@ -67,6 +67,9 @@ function Header() {
             <a href="/generate" className="hover:text-foreground transition-colors">
               Generate
             </a>
+            <a href="/collection" className="hover:text-foreground transition-colors">
+              Collection
+            </a>
             <a href="/pricing" className="hover:text-foreground transition-colors">
               Pricing
             </a>

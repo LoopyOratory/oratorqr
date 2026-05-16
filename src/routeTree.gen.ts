@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './app/__root'
 import { Route as PricingRouteImport } from './app/pricing'
 import { Route as GenerateRouteImport } from './app/generate'
 import { Route as DashboardRouteImport } from './app/dashboard'
+import { Route as CollectionRouteImport } from './app/collection'
 import { Route as SplatRouteImport } from './app/$'
 import { Route as IndexRouteImport } from './app/index'
 import { Route as ApiAuthSplatRouteImport } from './app/api/auth/$'
@@ -29,6 +30,11 @@ const GenerateRoute = GenerateRouteImport.update({
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CollectionRoute = CollectionRouteImport.update({
+  id: '/collection',
+  path: '/collection',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SplatRoute = SplatRouteImport.update({
@@ -50,6 +56,7 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/collection': typeof CollectionRoute
   '/dashboard': typeof DashboardRoute
   '/generate': typeof GenerateRoute
   '/pricing': typeof PricingRoute
@@ -58,6 +65,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/collection': typeof CollectionRoute
   '/dashboard': typeof DashboardRoute
   '/generate': typeof GenerateRoute
   '/pricing': typeof PricingRoute
@@ -67,6 +75,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/collection': typeof CollectionRoute
   '/dashboard': typeof DashboardRoute
   '/generate': typeof GenerateRoute
   '/pricing': typeof PricingRoute
@@ -77,16 +86,25 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/$'
+    | '/collection'
     | '/dashboard'
     | '/generate'
     | '/pricing'
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$' | '/dashboard' | '/generate' | '/pricing' | '/api/auth/$'
+  to:
+    | '/'
+    | '/$'
+    | '/collection'
+    | '/dashboard'
+    | '/generate'
+    | '/pricing'
+    | '/api/auth/$'
   id:
     | '__root__'
     | '/'
     | '/$'
+    | '/collection'
     | '/dashboard'
     | '/generate'
     | '/pricing'
@@ -96,6 +114,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
+  CollectionRoute: typeof CollectionRoute
   DashboardRoute: typeof DashboardRoute
   GenerateRoute: typeof GenerateRoute
   PricingRoute: typeof PricingRoute
@@ -125,6 +144,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/collection': {
+      id: '/collection'
+      path: '/collection'
+      fullPath: '/collection'
+      preLoaderRoute: typeof CollectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/$': {
       id: '/$'
       path: '/$'
@@ -152,6 +178,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
+  CollectionRoute: CollectionRoute,
   DashboardRoute: DashboardRoute,
   GenerateRoute: GenerateRoute,
   PricingRoute: PricingRoute,

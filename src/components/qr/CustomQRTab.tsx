@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useRef, useCallback, useEffect } from "react";
-import { QRCodeJs } from "@qr-platform/qr-code.js"; 
+import { QRCodeJs } from "@qr-platform/qr-code.js";
+import { useSession } from "@/auth/client"; 
 
 function makeGradient(on: boolean, c1: string, c2: string, type: string, rot: number) {
   if (!on) return undefined;
@@ -94,6 +95,7 @@ function CollapsibleSection({ title, children, defaultOpen = false }: { title: s
 }
 
 export default function CustomQRTab() {
+  const { data: session } = useSession();
   const [url, setUrl] = useState("");
   const [dotType, setDotType] = useState<string>("square");
   const [cornerSquareType, setCornerSquareType] = useState<string>("square");
@@ -275,10 +277,16 @@ export default function CustomQRTab() {
           </div>
         )}
         {url && (
-          <div className="flex gap-2">
-            <button onClick={downloadSVG} className="rounded-lg border px-4 py-2 text-sm font-medium hover:bg-accent transition-colors">SVG</button>
-            <button onClick={downloadPNG} className="rounded-lg bg-primary text-primary-foreground px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors">PNG</button>
-          </div>
+          session?.user ? (
+            <div className="flex gap-2">
+              <button onClick={downloadSVG} className="rounded-lg border px-4 py-2 text-sm font-medium hover:bg-accent transition-colors">SVG</button>
+              <button onClick={downloadPNG} className="rounded-lg bg-primary text-primary-foreground px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors">PNG</button>
+            </div>
+          ) : (
+            <a href="/auth" className="w-full max-w-sm rounded-lg bg-primary text-primary-foreground px-4 py-3 text-sm font-medium hover:bg-primary/90 transition-colors text-center">
+              Sign in to Download
+            </a>
+          )
         )}
       </div>
     </div>
