@@ -22,28 +22,6 @@
 | i18n | English only |
 | Deployment | Docker + Bun (Nitro output) |
 
-## QR Styles
-| ID | Name | Type |
-|---|---|---|
-| a1/a1c/a1p | Basic / Circle / Planet | Parametric (SVG) |
-| a2/a2c | Advanced / Cross | Parametric (SVG) |
-| c2 | Image Overlay | Parametric (SVG) |
-| sp1 | X-Mark | Parametric (SVG) |
-| a3 | Vortex | Parametric (SVG) |
-| a3r | Circuit Board | Parametric (SVG) |
-| sp2 | Mosaic | Parametric (SVG) |
-| g1 | AI QR | API Fetcher |
-| custom | Custom QR (QRCode.js) | 14 dot shapes + gradients |
 
-## Pricing Model
-| Tier | Simple QR | AI QR | Price |
-|---|---|---|---|
-| Free | 5/mo | 1/mo | $0 |
-| QR Pro | 200/mo | — | $9/mo |
-| AI Pro | — | 100/mo | $19/mo |
-| Unlimited | Unlimited | 300/mo | $39/mo |
 
-Credit Packs: QR (50 for $4.99), AI (25 for $9.99), Combo (200+100 for $20)
 
-## Environment Variables
-See `.env.example` for all required variables.
