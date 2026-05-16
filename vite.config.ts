@@ -1,23 +1,27 @@
-import { defineConfig } from 'vite'
-import { devtools } from '@tanstack/devtools-vite'
+import { defineConfig } from "vite";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+import { nitro } from "nitro/vite";
 
-import { tanstackStart } from '@tanstack/react-start/plugin/vite'
-
-import viteReact from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
-import neon from './neon-vite-plugin.ts'
-import { cloudflare } from '@cloudflare/vite-plugin'
-
-const config = defineConfig({
+export default defineConfig({
+  server: { port: 3000 },
   resolve: { tsconfigPaths: true },
+  ssr: {
+    noExternal: ["zod", "better-auth", "better-call", "@better-fetch"],
+  },
   plugins: [
-    devtools(),
-    neon,
-    cloudflare({ viteEnvironment: { name: 'ssr' } }),
     tailwindcss(),
-    tanstackStart(),
+    tanstackStart({
+      srcDirectory: "src",
+      router: { routesDirectory: "app" },
+    }),
     viteReact(),
+    nitro({
+      preset: "bun",
+      rollupConfig: {
+        externals: [/@qr-platform/],
+      },
+    }),
   ],
-})
-
-export default config
+});
