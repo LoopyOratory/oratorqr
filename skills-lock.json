@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "dockerize": {
+      "source": "haloydev/agent-skills",
+      "sourceType": "github",
+      "skillPath": "dockerize/SKILL.md",
+      "computedHash": "08d11d0e35d57b4b8b2494aa78d76e7cb07b2b3c76c0680593456e4255f5d0f3"
+    },
+    "haloy-config": {
+      "source": "haloydev/agent-skills",
+      "sourceType": "github",
+      "skillPath": "haloy-config/SKILL.md",
+      "computedHash": "fd26cdd7a15dad1eb387c916e8eceb8326878ae4f6b877c6c53da3a66da9b995"
+    }
+  }
+}
